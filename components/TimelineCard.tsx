@@ -55,7 +55,7 @@ export const TimelineCard: React.FC<TimelineCardProps> = ({
 
   return (
     <div className={`
-      relative flex flex-col h-full min-h-[420px] p-8 rounded-3xl transition-all duration-500
+      relative flex flex-col h-full min-h-[450px] p-8 rounded-3xl transition-all duration-500
       ${getContainerStyles()}
     `}>
       {/* Tape Effect */}
@@ -63,7 +63,7 @@ export const TimelineCard: React.FC<TimelineCardProps> = ({
         <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-24 h-6 bg-sky-100/50 rotate-[-2deg] backdrop-blur-sm shadow-sm rounded-sm"></div>
       )}
 
-      <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-50">
+      <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-50">
         <div>
           <span className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-1 block eng-font">
             {subtitle}
@@ -81,17 +81,17 @@ export const TimelineCard: React.FC<TimelineCardProps> = ({
         {type === 'yesterday' && (
           entry ? (
             <div className="space-y-6 animate-fadeIn h-full flex flex-col">
-              <div className="bg-indigo-50/50 p-4 rounded-xl">
-                <p className="text-sm text-indigo-900/60 leading-relaxed font-medium">
+              <div className="bg-indigo-50/50 p-4 rounded-xl shrink-0">
+                <p className="text-sm text-indigo-900/60 leading-relaxed font-medium line-clamp-2">
                   "{entry.question}"
                 </p>
               </div>
-              <div className="flex-grow overflow-y-auto pr-2 custom-scrollbar">
-                <p className="text-slate-600 leading-7 text-[15px] text-justify">
+              <div className="flex-grow flex items-center justify-center p-4">
+                <p className="text-slate-600 leading-normal text-lg text-center font-serif font-medium">
                   {entry.answer}
                 </p>
               </div>
-              <div className="pt-4 text-right">
+              <div className="pt-4 text-right border-t border-slate-50 shrink-0">
                  <span className="text-xs text-indigo-300 font-mono">{entry.date}</span>
               </div>
             </div>
@@ -106,30 +106,34 @@ export const TimelineCard: React.FC<TimelineCardProps> = ({
         {type === 'today' && (
           entry ? (
             <div className="space-y-6 animate-fadeIn h-full flex flex-col">
-              <div className="text-center">
+              <div className="text-center shrink-0">
                 <span className="inline-block px-3 py-1 bg-sky-50 text-sky-600 text-xs rounded-full mb-3">已收录</span>
-                <h3 className="text-lg font-medium text-slate-800">"{entry.question}"</h3>
+                <h3 className="text-lg font-medium text-slate-800 line-clamp-1">"{entry.question}"</h3>
               </div>
               
-              <div className="relative flex-grow bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] p-4 rounded-xl border border-slate-100">
+              <div className="relative flex-grow bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] p-6 rounded-xl border border-slate-100 flex items-center justify-center overflow-hidden">
                 <div className="absolute -top-2 left-4 w-4 h-4 bg-red-100 rounded-full opacity-50"></div>
-                <p className="text-slate-600 leading-8 relative z-10 handwritten text-lg">
-                  {entry.answer}
-                </p>
+                
+                {/* Updated typography for impact: Larger, bolder, centered */}
+                <div className="relative z-10 max-h-full overflow-y-auto custom-scrollbar flex items-center justify-center h-full w-full">
+                   <p className="text-slate-800 leading-relaxed font-serif text-2xl md:text-3xl font-bold text-center tracking-wide px-2">
+                    {entry.answer}
+                  </p>
+                </div>
               </div>
             </div>
           ) : (
             <div className="flex flex-col h-full">
-              <div className="mb-6">
-                <p className="text-slate-600 mb-2">欢迎来到云边铺子。</p>
-                <p className="text-sm text-slate-400">用今天的烦恼或疑问，交换一份云端的来信。每天限一次哦。</p>
+              <div className="mb-6 shrink-0">
+                <p className="text-slate-600 mb-2 font-serif text-lg">欢迎来到云边铺子。</p>
+                <p className="text-sm text-slate-400 leading-relaxed">用今天的烦恼或疑问，交换一份云端的来信。<br/>每天限一次，愿你有所收获。</p>
               </div>
               <form onSubmit={handleSubmit} className="flex-grow flex flex-col relative group">
                 <textarea
                   value={inputQuestion}
                   onChange={(e) => setInputQuestion(e.target.value)}
                   placeholder="亲爱的店长，今天我想说..."
-                  className="w-full flex-grow p-5 bg-slate-50 border-0 rounded-2xl focus:ring-0 focus:bg-sky-50/30 transition-all resize-none placeholder:text-slate-300 leading-relaxed"
+                  className="w-full flex-grow p-5 bg-slate-50 border-0 rounded-2xl focus:ring-0 focus:bg-sky-50/30 transition-all resize-none placeholder:text-slate-300 leading-relaxed font-serif text-slate-600"
                   disabled={isLoading}
                 />
                 <button
